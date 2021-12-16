@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="./pages/admin/admin.js" defer></script>
+</head>
+<body>
+
+<h1>Admin</h1>
+
+<h3>Edit Page Texts</h3>
+
+<div id="pageControl">
+    <div class="row">
+        <div class="col-sm-2">
+            <select class="list-group p-3" id="pageSelect" size="4" style="overflow-y:auto">
+                <option class="list-group-item">Frontpage</option>
+                <option class="list-group-item">Activities</option>
+                <option class="list-group-item">Contact</option>
+                <option class="list-group-item">Blog</option>
+            </select>
+        </div>
+        <div class="col-sm-10">
+            <div id="quill"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-2">
+            <br/><br/>
+            <button class="btn btn-primary" id="savePageButton">Save</button>
+            <button class="btn btn-secondary" id="cancelPageButton">Cancel</button>
+        </div>
+    </div>
+</div>
+<hr>
+<h3>Create/Edit Activities</h3>
+<div>
+    <div class="row">
+        <div class="col-sm-2">
+            <select class="list-group p-3" id="activitySelect" style="overflow-y:auto">
+                <option disabled selected>Select activity</option>
+            </select>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createActivityModal">
+                Create Activity
+            </button>
+        </div>
+        <div class="col-sm-10">
+            <div class="form-group">
+                <label for="activityTitle">Activity Title</label>
+                <input type="email" class="form-control" id="activityTitle" placeholder="Activity title">
+            </div>
+            <div class="form-group">
+                <label for="activityImageLink">Image link</label>
+                <input type="text" class="form-control" id="activityImageLink" placeholder="Image link">
+            </div>
+            <div class="form-group">
+                <label for="activityDescription">Activity Description</label>
+                <textarea class="form-control" id="activityDescription" rows="3" placeholder="Activity description"></textarea>
+            </div>
+            <button type="submit" id="saveSelectedActivityButton" class="btn btn-primary">Submit</button>
+            <button type="submit" id="deleteSelectedActivityButton" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createActivityModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create new Activity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="newActivityTitle" class="form-label">Activity title</label>
+                    <input type="text" class="form-control" id="newActivityTitle">
+                </div>
+                <div class="mb-3">
+                    <label for="newActivityDescription" class="form-label">Activity description</label>
+                    <textarea class="form-control" id="newActivityDescription" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="newActivityImageLink" class="form-label">Activity Image Link</label>
+                    <input type="text" class="form-control" id="newActivityImageLink">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="createActivityButton">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<h3>Create and Edit Blogposts</h3>
+<div>
+    <div class="row">
+        <div class="col-sm-2">
+            <select class="list-group p-3" id="blogSelect" style="overflow-y:auto">
+                <option disabled selected>Select blogpost</option>
+            </select>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createBlogModal">
+                Create Blog Post
+            </button>
+        </div>
+        <div class="col-sm-10">
+            <div class="form-group">
+                <label for="activityTitle">Blog Title</label>
+                <input type="email" class="form-control" id="blogTitle" placeholder="Blog title">
+            </div>
+            <div class="form-group">
+                <label for="activityDescription">Blog content</label>
+                <textarea class="form-control" id="blogContent" rows="3" placeholder="Blog Content"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="blogAuthor">Author</label>
+                <input type="text" class="form-control" id="blogAuthor" placeholder="Blog author">
+            </div>
+            <button type="submit" id="saveSelectedBlogButton" class="btn btn-primary">Submit</button>
+            <button type="submit" id="deleteSelectedBlogButton" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createBlogModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create new Blog post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label for="newBlogTitle" class="form-label">Blog title</label>
+                    <input type="text" class="form-control" id="newBlogTitle">
+                </div>
+                <div class="mb-3">
+                    <label for="newBlogContent" class="form-label">Blog content</label>
+                    <textarea class="form-control" id="newBlogContent" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="newBlogAuthor" class="form-label">Author</label>
+                    <input type="text" class="form-control" id="newBlogAuthor">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="createBlogButton">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
