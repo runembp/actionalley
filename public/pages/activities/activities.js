@@ -2,7 +2,7 @@
     const page =  await fetch("api/pages/activities").then(response => response.json())
     document.getElementById("pageContent").innerHTML = page.pageContent.pagecontent
 
-    renderActivityList()
+    await renderActivityList()
 })()
 
 async function renderActivityList() {
@@ -36,7 +36,6 @@ async function renderActivityList() {
                         <div class="col">
                             <img class="img-thumbnail" src="${activity.image}">
                         </div>
-                        
                     </div>
                 `
         }

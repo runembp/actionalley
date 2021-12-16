@@ -23,8 +23,7 @@ function renderGoogleMap() {
     })
 }
 
-function sendContactMessage() {
-
+async function sendContactMessage() {
     const nameInput = document.getElementById("contactName")
     const telephoneInput = document.getElementById("contactPhone")
     const emailInput = document.getElementById("contactEmail")
@@ -36,7 +35,7 @@ function sendContactMessage() {
         return
     }
 
-    fetch("/api/contact", {
+    await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-type": "application/json; charset=UTF-8" },
         body: JSON.stringify({

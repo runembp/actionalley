@@ -1,6 +1,7 @@
 {
   "name": "actionalley",
   "description": "A website for an imaginary action-park",
+  "author": "Rune Bjerregaard Petersen",
   "dependencies": {
     "bootstrap": "^5.1.3",
     "express": "^4.17.1",
@@ -24,6 +25,5 @@
   },
   "type": "module",
   "main": "app.js",
-  "author": "Rune Bjerregaard Petersen",
   "license": "MIT"
 }

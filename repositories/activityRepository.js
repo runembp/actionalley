@@ -12,16 +12,13 @@ router.post("/api/activities", async (req, res) => {
     if(req.session.ActionAlleyAuthenticated === undefined) {
         return res.sendStatus(401)
     }
-
     const activityToCreate = req.body
-
     connection.run("INSERT INTO activities (title, description, image) VALUES (?, ?, ?)",
         [
             activityToCreate.title,
             activityToCreate.description,
             activityToCreate.image
         ])
-
     res.sendStatus(200)
 })
 

@@ -23,7 +23,9 @@ const loginPage = pageRender("login/login.html", {
     title: "Action Alley | Staff section"
 })
 const adminPage = pageRender("admin/admin.html")
-const unAuthorizedPage = pageRender("unauthorized/unauthorized.html")
+const unAuthorizedPage = pageRender("unauthorized/unauthorized.html", {
+    title: "Action Alley | Unauthorized"
+})
 
 router.get("/", (req, res) => {
     res.send(frontpagePage)
@@ -50,11 +52,6 @@ router.get("/login", (req, res) => {
     res.send(loginPage)
 })
 
-router.get("/logout", (req, res) => {
-    req.session.destroy()
-    res.send(frontpagePage)
-})
-
 router.get("/admin", (req, res) => {
     if(req.session.ActionAlleyAuthenticated === undefined)
     {
@@ -62,6 +59,11 @@ router.get("/admin", (req, res) => {
         return
     }
     res.send(adminPage)
+})
+
+router.get("/logout", (req, res) => {
+    req.session.destroy()
+    res.send(frontpagePage)
 })
 
 export default router

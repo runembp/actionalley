@@ -2,7 +2,7 @@
     const page =  await fetch("api/pages/blog").then(response => response.json())
     document.getElementById("pageContent").innerHTML = page.pageContent.pagecontent
 
-    renderBlogPosts()
+    await renderBlogPosts()
 })()
 
 async function renderBlogPosts() {
@@ -29,6 +29,4 @@ async function renderBlogPosts() {
                 <hr>                
             `
     })
-
-
 }

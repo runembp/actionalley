@@ -1,4 +1,4 @@
-(() => {
+(async () => {
     document.getElementById("submitCredentials").addEventListener("click", checkLogin)
     document.getElementById("username").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
@@ -12,7 +12,7 @@
     })
 })()
 
-function checkLogin() {
+async function checkLogin() {
     const username = document.getElementById("username")
     const password = document.getElementById("password")
 
@@ -26,7 +26,7 @@ function checkLogin() {
         return
     }
 
-    fetch("/api/login", {
+    await fetch("/api/login", {
         method: "POST",
         headers: {
             "Content-type": "application/json; charset=UTF-8"

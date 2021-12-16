@@ -7,7 +7,6 @@ router.get("/api/pages/:pageName",  async (req, res) => {
     const pageName = req.params.pageName
     const pageNameLowercase = pageName.toLowerCase()
     const pageContent = await connection.get("SELECT pagecontent FROM pages WHERE pagename = (?)", [pageNameLowercase])
-
     res.send({pageContent})
 })
 
@@ -17,9 +16,7 @@ router.patch("/api/pages", async (req, res) => {
     }
     const pageName = req.body.pagename.toLowerCase()
     const pageContent = req.body.pagecontent
-
     connection.run("UPDATE pages SET pagecontent = (?) WHERE pagename = (?)", [pageContent, pageName])
-
     res.sendStatus(200)
 })
 

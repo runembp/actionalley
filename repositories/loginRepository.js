@@ -1,12 +1,11 @@
 import express from "express"
 const router = express.Router()
 
-import bcrypt from "bcrypt"
 import {connection} from "../database/connectSqlite.js"
 import {authRateLimiter} from "../security/ratelimiter.js"
+import bcrypt from "bcrypt"
 
 router.post("/api/login", authRateLimiter, async (req, res) => {
-
     const remainingAttempts = req.rateLimit.remaining
     const credentialsToCheck = req.body
     const userCredentials = await connection.get("SELECT username, password FROM users WHERE username = (?)", [credentialsToCheck.username])

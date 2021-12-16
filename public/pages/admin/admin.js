@@ -1,7 +1,7 @@
-(() => {
+(async () => {
     renderPageControls()
-    renderActivityControls()
-    renderBlogControls()
+    await renderActivityControls()
+    await renderBlogControls()
     renderLogoutControls()
 })()
 
@@ -60,7 +60,6 @@ async function setQuillText(pageSelector) {
     selectedPageTitle = pageSelector.target.value
     const selectedPage = await fetch(`api/pages/${selectedPageTitle}`).then(response => response.json())
     selectedPageContent = selectedPage.pageContent.pagecontent
-
     editor.root.innerHTML = selectedPageContent
 }
 
@@ -118,12 +117,12 @@ function renderSelectedActivity(activitySelector) {
     deleteSelectedActivityButton.addEventListener("click", deleteSelectedActivity)
 }
 
-function saveSelectedActivity() {
+async function saveSelectedActivity() {
     const newActivityTitle = document.getElementById("activityTitle").value
     const newActivityDescription = document.getElementById("activityDescription").value
     const newActivityImage = document.getElementById("activityImageLink").value
 
-    fetch(`/api/activities/`, {
+    await fetch(`/api/activities/`, {
         method: "PATCH",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
@@ -144,21 +143,21 @@ function saveSelectedActivity() {
     })
 }
 
-function deleteSelectedActivity() {
+async function deleteSelectedActivity() {
     const confirmationText = `Are you sure you want to delete ${selectedActivity.title}?`
     if(confirm(confirmationText) === false) {
         return
     }
 
-    fetch(`/api/activities/${selectedActivity.id}`, {
+    await fetch(`/api/activities/${selectedActivity.id}`, {
         method: "DELETE"
     }).then(response => {
         if(response.status === 200){
             toastr.info(`${selectedActivity.title} has been deleted.`)
-            renderActivityControls()
             document.getElementById("activityTitle").value = ""
             document.getElementById("activityDescription").value = ""
             document.getElementById("activityImageLink").value = ""
+            renderActivityControls()
         } else {
             toastr.error(`Error happened during deletion: ${response.status}`)
         }
@@ -217,12 +216,12 @@ function renderSelectedBlogPost(blogSelector) {
     deleteSelectedBlogButton.addEventListener("click", deleteSelectedBlogPost)
 }
 
-function saveSelectedBlogPost() {
+async function saveSelectedBlogPost() {
     const newBlogTitle = document.getElementById("blogTitle").value
     const newBlogContent = document.getElementById("blogContent").value
     const newBlogImage = document.getElementById("blogAuthor").value
 
-    fetch(`/api/blog/`, {
+    await fetch(`/api/blog/`, {
         method: "PATCH",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
@@ -243,13 +242,13 @@ function saveSelectedBlogPost() {
     })
 }
 
-function deleteSelectedBlogPost() {
+async function deleteSelectedBlogPost() {
     const confirmationText = `Are you sure you want to delete ${selectedBlogPost.title}?`
     if(confirm(confirmationText) === false) {
         return
     }
 
-    fetch(`/api/blog/${selectedBlogPost.id}`, {
+    await fetch(`/api/blog/${selectedBlogPost.id}`, {
         method: "DELETE"
     }).then(response => {
         if(response.status === 200){
