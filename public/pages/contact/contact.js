@@ -48,6 +48,10 @@ function sendContactMessage() {
     }).then(response => {
         if (response.status === 200) {
             toastr.success("Message has been sent!")
+            nameInput.value = null
+            telephoneInput.value = null
+            emailInput.value = null
+            messageInput.value = null
         } else {
             toastr.error("Message couldn't be sent. Please try again.")
         }
