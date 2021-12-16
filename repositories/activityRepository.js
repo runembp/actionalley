@@ -1,5 +1,5 @@
-import express from "express";
-import {connection} from "../database/connectSqlite.js";
+import express from "express"
+import {connection} from "../database/connectSqlite.js"
 
 const router = express.Router()
 
@@ -9,6 +9,10 @@ router.get("/api/activities", async (req, res) => {
 })
 
 router.post("/api/activities", async (req, res) => {
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
+
     const activityToCreate = req.body
 
     connection.run("INSERT INTO activities (title, description, image) VALUES (?, ?, ?)",
@@ -22,7 +26,10 @@ router.post("/api/activities", async (req, res) => {
 })
 
 router.patch("/api/activities", async (req, res) => {
-    const activityToBeSaved = req.body;
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
+    const activityToBeSaved = req.body
     await connection.run("UPDATE activities SET title = (?), description = (?), image = (?) WHERE id = (?)",
         [
             activityToBeSaved.title,
@@ -34,6 +41,9 @@ router.patch("/api/activities", async (req, res) => {
 })
 
 router.delete("/api/activities/:id", async (req, res) => {
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
     const activityId = req.params.id
     await connection.run("DELETE FROM activities WHERE id = (?)", [activityId])
     res.sendStatus(200)

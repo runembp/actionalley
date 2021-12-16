@@ -36,15 +36,19 @@ function checkLogin() {
             password: password.value
         })
     })
-        .then(response => response.json())
-        .then(x => {
-            location.href = "admin"
-        })
-        .catch(() => {
-            toastr.error("Invalid credentials.")
+        .then(response => {
+            if(response.status === 200) {
+                location.href = "admin"
+            }
+            if(response.status === 401) {
+                toastr.error("Invalid credentials")
+            }
+            if(response.status === 429) {
+                toastr.error("All attempts used! Lockout for 5 minutes.")
+            }
         })
 }
 
 toastr.options = {
     positionClass: 'toast-top-center'
-};
+}

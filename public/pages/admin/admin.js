@@ -2,18 +2,19 @@
     renderPageControls()
     renderActivityControls()
     renderBlogControls()
+    renderLogoutControls()
 })()
 
 const editor = new Quill("#quill", {
     theme: "snow",
 })
 
-let selectedPageTitle;
-let selectedPageContent;
-let activityList;
-let selectedActivity;
-let blogpostList;
-let selectedBlogPost;
+let selectedPageTitle
+let selectedPageContent
+let activityList
+let selectedActivity
+let blogpostList
+let selectedBlogPost
 
 function renderPageControls() {
     const pageSelector = document.getElementById("pageSelect")
@@ -29,8 +30,9 @@ async function renderActivityControls() {
     const createActivityButton = document.getElementById("createActivityButton")
     const activitySelector = document.getElementById("activitySelect")
     const response = await fetch("/api/activities").then(response => response.json())
-    activityList = response.activityList
 
+    activityList = response.activityList
+    activitySelector.innerHTML = "<option selected value='-1'>Select activity</option>"
     activityList.forEach(activity => {
         activitySelector.innerHTML += `<option class="list-group-item" value="${activity.id}">${activity.title}</option>`
     })
@@ -43,8 +45,9 @@ async function renderBlogControls() {
     const createBlogButton = document.getElementById("createBlogButton")
     const blogSelector = document.getElementById("blogSelect")
     const response = await fetch("/api/blog").then(response => response.json())
-    blogpostList = response.blogposts
 
+    blogpostList = response.blogposts
+    blogSelector.innerHTML = "<option selected value='-1'>Select blogpost</option>"
     blogpostList.forEach(blogpost => {
         blogSelector.innerHTML += `<option class="list-group-item" value="${blogpost.id}">${blogpost.title}</option>`
     })
@@ -84,17 +87,35 @@ async function saveQuillText() {
 }
 
 function cancelQuillEdit() {
-    editor.root.innerHTML = selectedPageContent
+    editor.root.innerHTML = ""
+    document.getElementById("savePageButton").removeEventListener("click", saveQuillText)
 }
 
 function renderSelectedActivity(activitySelector) {
-    const activity = activityList.find(x => x.id === parseInt(activitySelector.target.value))
-    selectedActivity = activity;
-    document.getElementById("activityTitle").value = activity.title
-    document.getElementById("activityDescription").innerText = activity.description
-    document.getElementById("activityImageLink").value = activity.image
-    document.getElementById("saveSelectedActivityButton").addEventListener("click", saveSelectedActivity)
-    document.getElementById("deleteSelectedActivityButton").addEventListener("click", deleteSelectedActivity)
+    const selectedActivityId = parseInt(activitySelector.target.value)
+    const selectedActivityTitle = document.getElementById("activityTitle")
+    const selectedActivityDescription = document.getElementById("activityDescription")
+    const selectedActivityImageLink = document.getElementById("activityImageLink")
+    const saveSelectedActivityButton = document.getElementById("saveSelectedActivityButton")
+    const deleteSelectedActivityButton = document.getElementById("deleteSelectedActivityButton")
+
+    if(selectedActivityId === -1)
+    {
+        selectedActivityTitle.value = null
+        selectedActivityDescription.value = null
+        selectedActivityImageLink.value = null
+        saveSelectedActivityButton.removeEventListener("click", saveSelectedActivity)
+        deleteSelectedActivityButton.removeEventListener("click", deleteSelectedActivity)
+        return
+    }
+
+    const activity = activityList.find(x => x.id === selectedActivityId)
+    selectedActivity = activity
+    selectedActivityTitle.value = activity.title
+    selectedActivityDescription.innerText = activity.description
+    selectedActivityImageLink.value = activity.image
+    saveSelectedActivityButton.addEventListener("click", saveSelectedActivity)
+    deleteSelectedActivityButton.addEventListener("click", deleteSelectedActivity)
 }
 
 function saveSelectedActivity() {
@@ -116,6 +137,7 @@ function saveSelectedActivity() {
     }).then(response => {
         if(response.status === 200) {
             toastr.success(`${newActivityTitle} has been saved!`)
+            renderActivityControls()
         } else {
             toastr.error(`Error happened during saving: ${response.status}`)
         }
@@ -125,7 +147,7 @@ function saveSelectedActivity() {
 function deleteSelectedActivity() {
     const confirmationText = `Are you sure you want to delete ${selectedActivity.title}?`
     if(confirm(confirmationText) === false) {
-        return;
+        return
     }
 
     fetch(`/api/activities/${selectedActivity.id}`, {
@@ -133,6 +155,10 @@ function deleteSelectedActivity() {
     }).then(response => {
         if(response.status === 200){
             toastr.info(`${selectedActivity.title} has been deleted.`)
+            renderActivityControls()
+            document.getElementById("activityTitle").value = ""
+            document.getElementById("activityDescription").value = ""
+            document.getElementById("activityImageLink").value = ""
         } else {
             toastr.error(`Error happened during deletion: ${response.status}`)
         }
@@ -158,6 +184,7 @@ async function createActivity() {
         if(response.status === 200) {
             toastr.success(`${newActivityTitle} has been created!`)
             socket.emit("newactivity")
+            renderActivityControls()
         } else {
             toastr.error(`Error happened during creation: ${response.status}`)
         }
@@ -165,13 +192,29 @@ async function createActivity() {
 }
 
 function renderSelectedBlogPost(blogSelector) {
-    const blogpost = blogpostList.find(x => x.id === parseInt(blogSelector.target.value))
+    const blogPostId = parseInt(blogSelector.target.value)
+    const blogTitle = document.getElementById("blogTitle")
+    const blogContent = document.getElementById("blogContent")
+    const blogAuthor = document.getElementById("blogAuthor")
+    const saveSelectedBlogButton = document.getElementById("saveSelectedBlogButton")
+    const deleteSelectedBlogButton = document.getElementById("deleteSelectedBlogButton")
+
+    if(blogPostId === -1) {
+        blogTitle.value = ""
+        blogContent.value = ""
+        blogAuthor.value = ""
+        saveSelectedBlogButton.removeEventListener("click", saveSelectedBlogPost)
+        deleteSelectedBlogButton.removeEventListener("click", deleteSelectedBlogPost)
+        return
+    }
+
+    const blogpost = blogpostList.find(x => x.id === blogPostId)
     selectedBlogPost = blogpost
-    document.getElementById("blogTitle").value = blogpost.title
-    document.getElementById("blogContent").value = blogpost.content
-    document.getElementById("blogAuthor").value = blogpost.author
-    document.getElementById("saveSelectedBlogButton").addEventListener("click", saveSelectedBlogPost)
-    document.getElementById("deleteSelectedBlogButton").addEventListener("click", deleteSelectedBlogPost)
+    blogTitle.value = blogpost.title
+    blogContent.value = blogpost.content
+    blogAuthor.value = blogpost.author
+    saveSelectedBlogButton.addEventListener("click", saveSelectedBlogPost)
+    deleteSelectedBlogButton.addEventListener("click", deleteSelectedBlogPost)
 }
 
 function saveSelectedBlogPost() {
@@ -193,6 +236,7 @@ function saveSelectedBlogPost() {
     }).then(response => {
         if(response.status === 200) {
             toastr.success(`${newBlogTitle} has been saved!`)
+            renderBlogControls()
         } else {
             toastr.error(`Error happened during saving: ${response.status}`)
         }
@@ -202,7 +246,7 @@ function saveSelectedBlogPost() {
 function deleteSelectedBlogPost() {
     const confirmationText = `Are you sure you want to delete ${selectedBlogPost.title}?`
     if(confirm(confirmationText) === false) {
-        return;
+        return
     }
 
     fetch(`/api/blog/${selectedBlogPost.id}`, {
@@ -210,6 +254,10 @@ function deleteSelectedBlogPost() {
     }).then(response => {
         if(response.status === 200){
             toastr.info(`${selectedBlogPost.title} has been deleted.`)
+            renderBlogControls()
+            document.getElementById("blogTitle").value = null
+            document.getElementById("blogContent").value = null
+            document.getElementById("blogAuthor").value = null
         } else {
             toastr.error(`Error happened during deletion: ${response.status}`)
         }
@@ -237,12 +285,25 @@ async function createBlogPost() {
         if(response.status === 200) {
             toastr.success(`${newBlogPostTitle} has been created!`)
             socket.emit("newblogpost")
+            renderBlogControls()
         } else {
             toastr.error(`Error happened during creation: ${response.status}`)
         }
     })
 }
 
+function renderLogoutControls() {
+    const adminNav = document.getElementById("adminNav")
+    const logoutControl = document.createElement("li")
+    logoutControl.innerHTML =
+        `
+        <li class="navbar-item p-2">
+            <a href="/logout" class="btn btn-sm btn-danger">Logout</a>
+        </li>
+        `
+    adminNav.appendChild(logoutControl)
+}
+
 toastr.options = {
     positionClass: 'toast-top-center'
-};
+}

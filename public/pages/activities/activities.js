@@ -1,7 +1,6 @@
 (async () => {
     const page =  await fetch("api/pages/activities").then(response => response.json())
-    const pageContent = page.pageContent.pagecontent
-    document.getElementById("pageContent").innerHTML = pageContent
+    document.getElementById("pageContent").innerHTML = page.pageContent.pagecontent
 
     renderActivityList()
 })()

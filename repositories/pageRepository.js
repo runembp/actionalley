@@ -1,5 +1,5 @@
-import express from "express";
-import {connection} from "../database/connectSqlite.js";
+import express from "express"
+import {connection} from "../database/connectSqlite.js"
 
 const router = express.Router()
 
@@ -12,6 +12,9 @@ router.get("/api/pages/:pageName",  async (req, res) => {
 })
 
 router.patch("/api/pages", async (req, res) => {
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
     const pageName = req.body.pagename.toLowerCase()
     const pageContent = req.body.pagecontent
 

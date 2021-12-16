@@ -1,7 +1,7 @@
-import express from "express";
+import express from "express"
 const router = express.Router()
 
-import pageRender from "../page_render.js";
+import pageRender from "../page_render.js"
 
 const frontpagePage = pageRender("frontpage/frontpage.html", {
     title: "Action Alley | Welcome!"
@@ -45,10 +45,8 @@ router.get("/login", (req, res) => {
     if(req.session.ActionAlleyAuthenticated === true)
     {
         res.send(adminPage)
-        return;
+        return
     }
-
-
     res.send(loginPage)
 })
 
@@ -61,7 +59,7 @@ router.get("/admin", (req, res) => {
     if(req.session.ActionAlleyAuthenticated === undefined)
     {
         res.send(unAuthorizedPage)
-        return;
+        return
     }
     res.send(adminPage)
 })

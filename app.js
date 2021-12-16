@@ -1,12 +1,12 @@
 import express from "express"
 import path from "path"
-import http from "http";
+import http from "http"
 import session from "express-session"
-import { Server } from "socket.io";
+import { Server } from "socket.io"
 
 const app = express()
 const server = http.createServer(app)
-const __dirname = path.resolve();
+const __dirname = path.resolve()
 const io = new Server(server)
 
 io.sockets.on("connection", function(socket) {
@@ -18,14 +18,14 @@ io.sockets.on("connection", function(socket) {
     })
 })
 
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
+app.use('/build', express.static(__dirname + '/node_modules/toastr/build'))
+app.use('/dist', express.static( __dirname + '/node_modules/jquery/dist'))
+app.use('/client-dist', express.static( __dirname + '/node_modules/socket.io/client-dist'))
 app.use(express.static("public"))
 app.use(express.json())
 app.use(express.urlencoded( {extended: true}))
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-app.use('/build', express.static(__dirname + '/node_modules/toastr/build'));
-app.use('/dist', express.static( __dirname + '/node_modules/jquery/dist'));
-app.use('/client-dist', express.static( __dirname + '/node_modules/socket.io/client-dist'));
 app.use(session({
     resave: false,
     saveUninitialized: true,
@@ -34,10 +34,10 @@ app.use(session({
 
 import pagesRouter from "./routing/pagesRouter.js"
 import loginRepository from "./repositories/loginRepository.js"
-import pageRepository from "./repositories/pageRepository.js";
-import activityRepository from "./repositories/activityRepository.js";
-import blogRepository from "./repositories/blogRepository.js";
-import contactRouter from "./routing/contactRouter.js";
+import pageRepository from "./repositories/pageRepository.js"
+import activityRepository from "./repositories/activityRepository.js"
+import blogRepository from "./repositories/blogRepository.js"
+import contactRouter from "./routing/contactRouter.js"
 
 app.use(pagesRouter)
 app.use(loginRepository)
@@ -46,7 +46,7 @@ app.use(activityRepository)
 app.use(blogRepository)
 app.use(contactRouter)
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 80
 
 server.listen(PORT, (error) => {
   if(error) {

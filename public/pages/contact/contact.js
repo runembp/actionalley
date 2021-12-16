@@ -1,11 +1,9 @@
 (async () => {
     const contactMessageButton = document.getElementById("contactMessageButton")
     const page =  await fetch("api/pages/contact").then(response => response.json())
-    const pageContent = page.pageContent.pagecontent
-    document.getElementById("pageContent").innerHTML = pageContent
+    document.getElementById("pageContent").innerHTML = page.pageContent.pagecontent
 
     contactMessageButton.addEventListener("click", sendContactMessage)
-
     renderGoogleMap()
 })()
 
@@ -35,7 +33,7 @@ function sendContactMessage() {
     if(!nameInput.checkValidity() && !telephoneInput.checkValidity() || !emailInput.checkValidity() || !messageInput.checkValidity())
     {
         toastr.error("Please fill out every field in the contact form.")
-        return;
+        return
     }
 
     fetch("/api/contact", {
@@ -53,9 +51,9 @@ function sendContactMessage() {
         } else {
             toastr.error("Message couldn't be sent. Please try again.")
         }
-    });
+    })
 }
 
 toastr.options = {
     positionClass: 'toast-bottom-center'
-};
+}

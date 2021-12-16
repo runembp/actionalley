@@ -1,7 +1,7 @@
 import express from "express"
 const router = express.Router()
 
-import {transporter} from "../nodemailer/nodemailer.js";
+import {transporter} from "../nodemailer/nodemailer.js"
 
 router.post("/api/contact", async (req, res) => {
     const message = req.body
@@ -26,7 +26,7 @@ router.post("/api/contact", async (req, res) => {
         subject: emailSubject,
         text: message.message,
         html: emailHtmlBody
-    });
+    })
 
     res.sendStatus(200)
 })

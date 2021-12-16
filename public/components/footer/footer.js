@@ -1,3 +1,3 @@
-const copyrightElement = document.getElementById("copyright-year");
+const copyrightElement = document.getElementById("copyright-year")
 
-copyrightElement.innerText = `© ${new Date().getFullYear()}`;
+copyrightElement.innerText = `© ${new Date().getFullYear()}`

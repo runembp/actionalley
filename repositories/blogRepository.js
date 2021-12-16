@@ -1,5 +1,5 @@
-import express from "express";
-import {connection} from "../database/connectSqlite.js";
+import express from "express"
+import {connection} from "../database/connectSqlite.js"
 
 const router = express.Router()
 
@@ -9,6 +9,10 @@ router.get("/api/blog", async (req, res) => {
 })
 
 router.post("/api/blog", async (req, res) => {
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
+
     const blogPostToCreate = req.body
     connection.run("INSERT INTO blogposts (title, content, author, created) VALUES (?, ?, ?, ?)",
         [
@@ -22,6 +26,10 @@ router.post("/api/blog", async (req, res) => {
 })
 
 router.patch("/api/blog", async (req, res) => {
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
+
     const blogpostToUpdate = req.body
     connection.run("UPDATE blogposts SET title = (?), content = (?), author = (?) WHERE id = (?)",
         [
@@ -34,6 +42,10 @@ router.patch("/api/blog", async (req, res) => {
 })
 
 router.delete("/api/blog/:id", async (req, res) => {
+    if(req.session.ActionAlleyAuthenticated === undefined) {
+        return res.sendStatus(401)
+    }
+
     const blogpostId = req.params.id
     await connection.run("DELETE FROM blogposts WHERE id = (?)", [blogpostId])
     res.sendStatus(200)
