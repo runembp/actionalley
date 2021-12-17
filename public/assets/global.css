@@ -39,7 +39,7 @@ a:link {
     background-color: #e7e7e7;
 }
 
-a:link, a:hover, a:visited, a:active {
+a:hover, a:visited, a:active {
     color: #000000;
 }
 
