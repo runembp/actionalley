@@ -53,11 +53,11 @@ router.get("/login", (req, res) => {
 })
 
 router.get("/admin", (req, res) => {
-    if(req.session.ActionAlleyAuthenticated === undefined)
-    {
-        res.send(unAuthorizedPage)
-        return
-    }
+    // if(req.session.ActionAlleyAuthenticated === undefined)
+    // {
+    //     res.send(unAuthorizedPage)
+    //     return
+    // }
     res.send(adminPage)
 })
 

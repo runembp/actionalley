@@ -1,3 +1,7 @@
+body {
+    background-color: #f6f6f6;
+}
+
 main {
     min-height: calc(100vh - 200px);
 }
@@ -13,3 +17,29 @@ main {
     margin-right: auto;
     width: 50%;
 }
+
+.adminlogin {
+    opacity: 0.1;
+}
+
+a:link {
+    color: black !important;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbutton {
+    color: black !important;
+    border-radius: 12px;
+    margin: 5px;
+}
+
+.navbutton:hover {
+    background-color: #e7e7e7;
+}
+
+a:link, a:hover, a:visited, a:active {
+    color: #000000;
+}
+

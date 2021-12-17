@@ -1334,117 +1334,135 @@
     </argument>
     <table id="491" parent="170" name="activities"/>
     <table id="492" parent="170" name="blogposts"/>
-    <table id="493" parent="170" name="pages"/>
-    <table id="494" parent="170" name="sqlite_master">
+    <table id="493" parent="170" name="credentials"/>
+    <table id="494" parent="170" name="pages"/>
+    <table id="495" parent="170" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="495" parent="170" name="sqlite_sequence">
+    <table id="496" parent="170" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="496" parent="170" name="users"/>
-    <column id="497" parent="491" name="id">
+    <table id="497" parent="170" name="users"/>
+    <column id="498" parent="491" name="id">
       <DataType>integer|0s</DataType>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="498" parent="491" name="title">
+    <column id="499" parent="491" name="title">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="499" parent="491" name="description">
+    <column id="500" parent="491" name="description">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="500" parent="491" name="image">
+    <column id="501" parent="491" name="image">
       <DataType>TEXT|0s</DataType>
       <Position>4</Position>
     </column>
-    <key id="501" parent="491" name="activities_pk">
+    <key id="502" parent="491" name="activities_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="502" parent="492" name="id">
+    <column id="503" parent="492" name="id">
       <DataType>integer|0s</DataType>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="503" parent="492" name="title">
+    <column id="504" parent="492" name="title">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="504" parent="492" name="author">
+    <column id="505" parent="492" name="author">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="505" parent="492" name="content">
+    <column id="506" parent="492" name="content">
       <DataType>TEXT|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="506" parent="492" name="created">
+    <column id="507" parent="492" name="created">
       <DataType>TEXT|0s</DataType>
       <Position>5</Position>
     </column>
-    <key id="507" parent="492" name="blogposts_pk">
+    <key id="508" parent="492" name="blogposts_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="508" parent="493" name="id">
+    <column id="509" parent="493" name="id">
       <DataType>integer|0s</DataType>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="509" parent="493" name="pagename">
-      <DataType>TEXT|0s</DataType>
+    <column id="510" parent="493" name="service">
+      <DataType>text|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="510" parent="493" name="pagecontent">
-      <DataType>TEXT|0s</DataType>
+    <column id="511" parent="493" name="credential">
+      <DataType>text|0s</DataType>
       <Position>3</Position>
     </column>
-    <key id="511" parent="493" name="pages_pk">
+    <key id="512" parent="493" name="credentials_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="512" parent="494" name="type">
+    <column id="513" parent="494" name="id">
+      <DataType>integer|0s</DataType>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="514" parent="494" name="pagename">
+      <DataType>TEXT|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="515" parent="494" name="pagecontent">
+      <DataType>TEXT|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <key id="516" parent="494" name="pages_pk">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="517" parent="495" name="type">
       <DataType>text|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="513" parent="494" name="name">
+    <column id="518" parent="495" name="name">
       <DataType>text|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="514" parent="494" name="tbl_name">
+    <column id="519" parent="495" name="tbl_name">
       <DataType>text|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="515" parent="494" name="rootpage">
+    <column id="520" parent="495" name="rootpage">
       <DataType>int|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="516" parent="494" name="sql">
+    <column id="521" parent="495" name="sql">
       <DataType>text|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="517" parent="495" name="name">
+    <column id="522" parent="496" name="name">
       <Position>1</Position>
     </column>
-    <column id="518" parent="495" name="seq">
+    <column id="523" parent="496" name="seq">
       <Position>2</Position>
     </column>
-    <column id="519" parent="496" name="id">
+    <column id="524" parent="497" name="id">
       <DataType>integer|0s</DataType>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="520" parent="496" name="username">
+    <column id="525" parent="497" name="username">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="521" parent="496" name="password">
+    <column id="526" parent="497" name="password">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <key id="522" parent="496" name="users_pk">
+    <key id="527" parent="497" name="users_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>

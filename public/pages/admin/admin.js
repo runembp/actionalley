@@ -6,7 +6,7 @@
 })()
 
 const editor = new Quill("#quill", {
-    theme: "snow",
+    theme: "snow"
 })
 
 let selectedPageTitle
@@ -296,7 +296,7 @@ function renderLogoutControls() {
     const logoutControl = document.createElement("li")
     logoutControl.innerHTML =
         `
-        <li class="navbar-item p-2">
+        <li class="navbar-item navbutton">
             <a href="/logout" class="btn btn-sm btn-danger">Logout</a>
         </li>
         `
