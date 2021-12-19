@@ -67,7 +67,7 @@ async function saveQuillText() {
     const editorText = editor.root.innerHTML
 
     await fetch("api/pages/", {
-        method: "PATCH",
+        method: "PUT",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
@@ -123,7 +123,7 @@ async function saveSelectedActivity() {
     const newActivityImage = document.getElementById("activityImageLink").value
 
     await fetch(`/api/activities/`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
@@ -222,7 +222,7 @@ async function saveSelectedBlogPost() {
     const newBlogImage = document.getElementById("blogAuthor").value
 
     await fetch(`/api/blog/`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },

@@ -10,7 +10,7 @@ router.get("/api/pages/:pageName",  async (req, res) => {
     res.send({pageContent})
 })
 
-router.patch("/api/pages", async (req, res) => {
+router.put("/api/pages", async (req, res) => {
     if(req.session.ActionAlleyAuthenticated === undefined) {
         return res.sendStatus(401)
     }

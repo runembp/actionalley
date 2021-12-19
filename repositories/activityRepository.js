@@ -22,7 +22,7 @@ router.post("/api/activities", async (req, res) => {
     res.sendStatus(200)
 })
 
-router.patch("/api/activities", async (req, res) => {
+router.put("/api/activities", async (req, res) => {
     if(req.session.ActionAlleyAuthenticated === undefined) {
         return res.sendStatus(401)
     }
